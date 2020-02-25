@@ -61,7 +61,7 @@ heavyInfectionThreshold_counts <- heavyInfectionThreshold_epg / diagnosticDiviso
 # read in data
 #################################################################################################################################
 
-path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\Untreated\\correctedTimeStep\\"
+path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\L_FoI_Treated\\"
 file1 <- "fertilisedFemaleWorms_old_20-50KK_treat1x_100reps.RData"
 file2 <- "fertilisedFemaleWorms_new_20-50KK_treat1x_100reps.RData"
 stub1 <- substring(file1, first=22, last=41)

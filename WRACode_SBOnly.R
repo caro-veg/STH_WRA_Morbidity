@@ -12,8 +12,7 @@
 
 library(tidyr)
 library(doParallel)
-
-set.seed(234)
+library(doRNG)
 
 #############################################################################################
 # clean up before new run
@@ -34,6 +33,10 @@ twice <- args[3]	# treatment frequency per year
 
 setwd(path)
 twice <- as.logical(twice)
+
+
+seed <- 234
+set.seed(seed)
 
 
 runtime = proc.time()
@@ -210,9 +213,10 @@ return(recordFertilisedFemales)
 
 cl <- makeCluster(2)
 registerDoParallel(cl)
+#registerDoRNG(seed)
 
 iterations <- 100
-resultsList <- foreach(i=1:iterations) %do% doRealisation(n, k, sigma, twice, FoI)
+resultsList <- foreach(i=1:iterations, .options.RNG=seed) %dorng% doRealisation(n, k, sigma, twice, FoI)
 
 stopImplicitCluster() 
 

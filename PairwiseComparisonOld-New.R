@@ -22,7 +22,7 @@ heavyInfectionThreshold_counts <- heavyInfectionThreshold_epg / diagnosticDiviso
 
 
 
-outpath <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\Figures\\"
+outpath <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\Tables_OneList\\"
 
 
 # for column names and iterations
@@ -45,10 +45,10 @@ pointPrevAgeClass <- function(x, i1, i2)
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\ICLsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat1x.RData"
-file2 <- "eggCounts_new_20-50_treat1x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat1x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat1x.RData"
+stub1 <- substring(file1, first=27, last=40)
+stub2 <- substring(file2, first=27, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -91,6 +91,31 @@ MHIPrevsList <- lapply(MHICountsList, function(x){x / 500 * 100})
 meanPointPrevs_15_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 601)
 meanPointPrevs_15_19_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 240)
 meanPointPrevs_20_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 241, 601)
+
+
+################################################################################################
+# CALCULATE RELATIVE REDUCTION (MEAN AND 95% CREDIBLE INTERVAL)
+################################################################################################
+
+rr_15_50_20_50treat1x_ICL = (meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old * 100
+rr_15_19_20_50treat1x_ICL = (meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old * 100
+rr_20_50_20_50treat1x_ICL = (meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old * 100
+
+mean_rr_15_50_20_50treat1x_ICL = mean(rr_15_50_20_50treat1x_ICL)
+mean_rr_15_19_20_50treat1x_ICL = mean(rr_15_19_20_50treat1x_ICL)
+mean_rr_20_50_20_50treat1x_ICL = mean(rr_20_50_20_50treat1x_ICL)
+
+pc95_rr_15_50_20_50treat1x_ICL = quantile(rr_15_50_20_50treat1x_ICL, c(0.025, 0.975))
+pc95_rr_15_19_20_50treat1x_ICL = quantile(rr_15_19_20_50treat1x_ICL, c(0.025, 0.975))
+pc95_rr_20_50_20_50treat1x_ICL = quantile(rr_20_50_20_50treat1x_ICL, c(0.025, 0.975))
+
+df <- data.frame(mean=c(mean_rr_15_50_20_50treat1x_ICL, mean_rr_15_19_20_50treat1x_ICL, mean_rr_20_50_20_50treat1x_ICL),
+			pc0.025=c(pc95_rr_15_50_20_50treat1x_ICL[[1]], pc95_rr_15_19_20_50treat1x_ICL[[1]], pc95_rr_20_50_20_50treat1x_ICL[[1]]),
+			pc0.975=c(pc95_rr_15_50_20_50treat1x_ICL[[2]], pc95_rr_15_19_20_50treat1x_ICL[[2]], pc95_rr_20_50_20_50treat1x_ICL[[2]]))
+
+
+write.table(df, file=paste0(outpath, "rrMHI", stub2, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+
 
 
 ################################################################################################
@@ -113,10 +138,10 @@ res_20_50 <- wilcox.test(meanPointPrevs_20_50_old, meanPointPrevs_20_50_new, pai
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\EMCsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat1x.RData"
-file2 <- "eggCounts_new_20-50_treat1x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat1x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat1x.RData"
+stub1 <- substring(file1, first=27, last=40)
+stub2 <- substring(file2, first=27, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -160,6 +185,30 @@ MHIPrevsList <- lapply(MHICountsList, function(x){x / 500 * 100})
 meanPointPrevs_15_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 601)
 meanPointPrevs_15_19_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 240)
 meanPointPrevs_20_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 241, 601)
+
+
+################################################################################################
+# CALCULATE RELATIVE REDUCTION (MEAN AND 95% CREDIBLE INTERVAL)
+################################################################################################
+
+rr_15_50_20_50treat1x_EMC = (meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old * 100
+rr_15_19_20_50treat1x_EMC = (meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old * 100
+rr_20_50_20_50treat1x_EMC = (meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old * 100
+
+mean_rr_15_50_20_50treat1x_EMC = mean(rr_15_50_20_50treat1x_EMC)
+mean_rr_15_19_20_50treat1x_EMC = mean(rr_15_19_20_50treat1x_EMC)
+mean_rr_20_50_20_50treat1x_EMC = mean(rr_20_50_20_50treat1x_EMC)
+
+pc95_rr_15_50_20_50treat1x_EMC = quantile(rr_15_50_20_50treat1x_EMC, c(0.025, 0.975))
+pc95_rr_15_19_20_50treat1x_EMC = quantile(rr_15_19_20_50treat1x_EMC, c(0.025, 0.975))
+pc95_rr_20_50_20_50treat1x_EMC = quantile(rr_20_50_20_50treat1x_EMC, c(0.025, 0.975))
+
+df <- data.frame(mean=c(mean_rr_15_50_20_50treat1x_EMC, mean_rr_15_19_20_50treat1x_EMC, mean_rr_20_50_20_50treat1x_EMC),
+			pc0.025=c(pc95_rr_15_50_20_50treat1x_EMC[[1]], pc95_rr_15_19_20_50treat1x_EMC[[1]], pc95_rr_20_50_20_50treat1x_EMC[[1]]),
+			pc0.975=c(pc95_rr_15_50_20_50treat1x_EMC[[2]], pc95_rr_15_19_20_50treat1x_EMC[[2]], pc95_rr_20_50_20_50treat1x_EMC[[2]]))
+
+
+write.table(df, file=paste0(outpath, "rrMHI", stub2, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 
@@ -182,10 +231,10 @@ res_20_50 <- wilcox.test(meanPointPrevs_20_50_old, meanPointPrevs_20_50_new, pai
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\ICLsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat2x.RData"
-file2 <- "eggCounts_new_20-50_treat2x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat2x.RData"
+stub1 <- substring(file1, first=27, last=40)
+stub2 <- substring(file2, first=27, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -227,6 +276,31 @@ meanPointPrevs_15_19_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 240)
 meanPointPrevs_20_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 241, 601)
 
 
+################################################################################################
+# CALCULATE RELATIVE REDUCTION (MEAN AND 95% CREDIBLE INTERVAL)
+################################################################################################
+
+rr_15_50_20_50treat2x_ICL = ifelse(meanPointPrevs_15_50_old==0, 0, (meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old * 100)
+rr_15_19_20_50treat2x_ICL = ifelse(meanPointPrevs_15_19_old==0, 0, (meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old * 100)
+rr_20_50_20_50treat2x_ICL = ifelse(meanPointPrevs_20_50_old==0, 0, (meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old * 100)
+
+mean_rr_15_50_20_50treat2x_ICL = mean(rr_15_50_20_50treat2x_ICL, na.rm=TRUE)
+mean_rr_15_19_20_50treat2x_ICL = mean(rr_15_19_20_50treat2x_ICL, na.rm=TRUE)
+mean_rr_20_50_20_50treat2x_ICL = mean(rr_20_50_20_50treat2x_ICL, na.rm=TRUE)
+
+pc95_rr_15_50_20_50treat2x_ICL = quantile(rr_15_50_20_50treat2x_ICL, c(0.025, 0.975), na.rm=TRUE)
+pc95_rr_15_19_20_50treat2x_ICL = quantile(rr_15_19_20_50treat2x_ICL, c(0.025, 0.975), na.rm=TRUE)
+pc95_rr_20_50_20_50treat2x_ICL = quantile(rr_20_50_20_50treat2x_ICL, c(0.025, 0.975), na.rm=TRUE)
+
+df <- data.frame(mean=c(mean_rr_15_50_20_50treat2x_ICL, mean_rr_15_19_20_50treat2x_ICL, mean_rr_20_50_20_50treat2x_ICL),
+			pc0.025=c(pc95_rr_15_50_20_50treat2x_ICL[[1]], pc95_rr_15_19_20_50treat2x_ICL[[1]], pc95_rr_20_50_20_50treat2x_ICL[[1]]),
+			pc0.975=c(pc95_rr_15_50_20_50treat2x_ICL[[2]], pc95_rr_15_19_20_50treat2x_ICL[[2]], pc95_rr_20_50_20_50treat2x_ICL[[2]]))
+
+
+write.table(df, file=paste0(outpath, "rrMHI", stub2, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+
+
+
 
 ################################################################################################
 # WILCOXON SIGNED-RANK TESTS TO COMPARE OLD AND NEW TREATMENT STRATEGIES
@@ -246,10 +320,10 @@ res_20_50 <- wilcox.test(meanPointPrevs_20_50_old, meanPointPrevs_20_50_new, pai
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\EMCsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat2x.RData"
-file2 <- "eggCounts_new_20-50_treat2x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat2x.RData"
+stub1 <- substring(file1, first=27, last=40)
+stub2 <- substring(file2, first=27, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -293,7 +367,40 @@ meanPointPrevs_15_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 601)
 meanPointPrevs_15_19_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 240)
 meanPointPrevs_20_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 241, 601)
 
+mean((meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old)
+quantile((meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old, c(0.025, 0.975))
 
+mean((meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old)
+quantile((meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old, c(0.025, 0.975))
+
+mean((meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old)
+quantile((meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old, c(0.025, 0.975))
+    
+
+################################################################################################
+# CALCULATE RELATIVE REDUCTION (MEAN AND 95% CREDIBLE INTERVAL)
+################################################################################################
+
+rr_15_50_20_50treat2x_EMC = (meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old * 100
+rr_15_19_20_50treat2x_EMC = (meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old * 100
+rr_20_50_20_50treat2x_EMC = (meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old * 100
+
+mean_rr_15_50_20_50treat2x_EMC = mean(rr_15_50_20_50treat2x_EMC)
+mean_rr_15_19_20_50treat2x_EMC = mean(rr_15_19_20_50treat2x_EMC)
+mean_rr_20_50_20_50treat2x_EMC = mean(rr_20_50_20_50treat2x_EMC)
+
+pc95_rr_15_50_20_50treat2x_EMC = quantile(rr_15_50_20_50treat2x_EMC, c(0.025, 0.975))
+pc95_rr_15_19_20_50treat2x_EMC = quantile(rr_15_19_20_50treat2x_EMC, c(0.025, 0.975))
+pc95_rr_20_50_20_50treat2x_EMC = quantile(rr_20_50_20_50treat2x_EMC, c(0.025, 0.975))
+
+df <- data.frame(mean=c(mean_rr_15_50_20_50treat2x_EMC, mean_rr_15_19_20_50treat2x_EMC, mean_rr_20_50_20_50treat2x_EMC),
+			pc0.025=c(pc95_rr_15_50_20_50treat2x_EMC[[1]], pc95_rr_15_19_20_50treat2x_EMC[[1]], pc95_rr_20_50_20_50treat2x_EMC[[1]]),
+			pc0.975=c(pc95_rr_15_50_20_50treat2x_EMC[[2]], pc95_rr_15_19_20_50treat2x_EMC[[2]], pc95_rr_20_50_20_50treat2x_EMC[[2]]))
+
+
+write.table(df, file=paste0(outpath, "rrMHI", stub2, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+
+   
 
 ################################################################################################
 # WILCOXON SIGNED-RANK TESTS TO COMPARE OLD AND NEW TREATMENT STRATEGIES
@@ -316,10 +423,10 @@ res_20_50 <- wilcox.test(meanPointPrevs_20_50_old, meanPointPrevs_20_50_new, pai
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\ICLsimoutput\\"
-file1 <- "eggCounts_old_50-70_treat2x.RData"
-file2 <- "eggCounts_new_50-70_treat2x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_50-70_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_50-70_treat2x.RData"
+stub1 <- substring(file1, first=27, last=40)
+stub2 <- substring(file2, first=27, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -361,6 +468,31 @@ meanPointPrevs_15_19_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 240)
 meanPointPrevs_20_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 241, 601)
 
 
+################################################################################################
+# CALCULATE RELATIVE REDUCTION (MEAN AND 95% CREDIBLE INTERVAL)
+################################################################################################
+
+rr_15_50_50_100treat2x_ICL = (meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old * 100
+rr_15_19_50_100treat2x_ICL = (meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old * 100
+rr_20_50_50_100treat2x_ICL = (meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old * 100
+
+mean_rr_15_50_50_100treat2x_ICL = mean(rr_15_50_50_100treat2x_ICL)
+mean_rr_15_19_50_100treat2x_ICL = mean(rr_15_19_50_100treat2x_ICL)
+mean_rr_20_50_50_100treat2x_ICL = mean(rr_20_50_50_100treat2x_ICL)
+
+pc95_rr_15_50_50_100treat2x_ICL = quantile(rr_15_50_50_100treat2x_ICL, c(0.025, 0.975))
+pc95_rr_15_19_50_100treat2x_ICL = quantile(rr_15_19_50_100treat2x_ICL, c(0.025, 0.975))
+pc95_rr_20_50_50_100treat2x_ICL = quantile(rr_20_50_50_100treat2x_ICL, c(0.025, 0.975))
+
+df <- data.frame(mean=c(mean_rr_15_50_50_100treat2x_ICL, mean_rr_15_19_50_100treat2x_ICL, mean_rr_20_50_50_100treat2x_ICL),
+			pc0.025=c(pc95_rr_15_50_50_100treat2x_ICL[[1]], pc95_rr_15_19_50_100treat2x_ICL[[1]], pc95_rr_20_50_50_100treat2x_ICL[[1]]),
+			pc0.975=c(pc95_rr_15_50_50_100treat2x_ICL[[2]], pc95_rr_15_19_50_100treat2x_ICL[[2]], pc95_rr_20_50_50_100treat2x_ICL[[2]]))
+
+
+write.table(df, file=paste0(outpath, "rrMHI", stub2, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+
+
+
 
 ################################################################################################
 # WILCOXON SIGNED-RANK TESTS TO COMPARE OLD AND NEW TREATMENT STRATEGIES
@@ -381,10 +513,10 @@ res_20_50 <- wilcox.test(meanPointPrevs_20_50_old, meanPointPrevs_20_50_new, pai
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\EMCsimoutput\\"
-file1 <- "eggCounts_old_50-100_treat2x.RData"
-file2 <- "eggCounts_new_50-100_treat2x.RData"
-stub1 <- substring(file1, first=10, last=28)
-stub2 <- substring(file2, first=10, last=28)
+file1 <- "redoneEggCountsOneList_old_50-100_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_50-100_treat2x.RData"
+stub1 <- substring(file1, first=27, last=41)
+stub2 <- substring(file2, first=27, last=41)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -428,6 +560,32 @@ MHIPrevsList <- lapply(MHICountsList, function(x){x / 500 * 100})
 meanPointPrevs_15_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 601)
 meanPointPrevs_15_19_new <- sapply(MHIPrevsList, pointPrevAgeClass, 181, 240)
 meanPointPrevs_20_50_new <- sapply(MHIPrevsList, pointPrevAgeClass, 241, 601)
+
+
+
+################################################################################################
+# CALCULATE RELATIVE REDUCTION (MEAN AND 95% CREDIBLE INTERVAL)
+################################################################################################
+
+rr_15_50_50_100treat2x_EMC = (meanPointPrevs_15_50_old - meanPointPrevs_15_50_new) / meanPointPrevs_15_50_old * 100
+rr_15_19_50_100treat2x_EMC = (meanPointPrevs_15_19_old - meanPointPrevs_15_19_new) / meanPointPrevs_15_19_old * 100
+rr_20_50_50_100treat2x_EMC = (meanPointPrevs_20_50_old - meanPointPrevs_20_50_new) / meanPointPrevs_20_50_old * 100
+
+mean_rr_15_50_50_100treat2x_EMC = mean(rr_15_50_50_100treat2x_EMC)
+mean_rr_15_19_50_100treat2x_EMC = mean(rr_15_19_50_100treat2x_EMC)
+mean_rr_20_50_50_100treat2x_EMC = mean(rr_20_50_50_100treat2x_EMC)
+
+pc95_rr_15_50_50_100treat2x_EMC = quantile(rr_15_50_50_100treat2x_EMC, c(0.025, 0.975))
+pc95_rr_15_19_50_100treat2x_EMC = quantile(rr_15_19_50_100treat2x_EMC, c(0.025, 0.975))
+pc95_rr_20_50_50_100treat2x_EMC = quantile(rr_20_50_50_100treat2x_EMC, c(0.025, 0.975))
+
+df <- data.frame(mean=c(mean_rr_15_50_50_100treat2x_EMC, mean_rr_15_19_50_100treat2x_EMC, mean_rr_20_50_50_100treat2x_EMC),
+			pc0.025=c(pc95_rr_15_50_50_100treat2x_EMC[[1]], pc95_rr_15_19_50_100treat2x_EMC[[1]], pc95_rr_20_50_50_100treat2x_EMC[[1]]),
+			pc0.975=c(pc95_rr_15_50_50_100treat2x_EMC[[2]], pc95_rr_15_19_50_100treat2x_EMC[[2]], pc95_rr_20_50_50_100treat2x_EMC[[2]]))
+
+
+write.table(df, file=paste0(outpath, "rrMHI", stub2, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+
 
 
 

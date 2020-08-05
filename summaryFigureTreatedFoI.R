@@ -24,7 +24,7 @@ heavyInfectionThreshold_counts <- heavyInfectionThreshold_epg / diagnosticDiviso
 
 
 
-outpath <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\Figures\\"
+outpath <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\FiguresAntonio\\"
 
 
 # for column names and iterations
@@ -40,10 +40,10 @@ results <- get(load(paste0(path, file)))
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\ICLsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat1x.RData"
-file2 <- "eggCounts_new_20-50_treat1x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat1x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat1x.RData"
+stub1 <- substring(file1, first=23, last=40)
+stub2 <- substring(file2, first=23, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -132,7 +132,7 @@ df <- data.frame(Mean=c(red.mean.mhi.icl.mod.1x.15_50, red.mean.mhi.icl.mod.1x.1
 df <- df*100
 df <- signif(df, digits=5)
 stub <- substring(stub2, first=5, last=18)
-write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+#write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 
@@ -145,10 +145,10 @@ write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.tx
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\EMCsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat1x.RData"
-file2 <- "eggCounts_new_20-50_treat1x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat1x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat1x.RData"
+stub1 <- substring(file1, first=23, last=40)
+stub2 <- substring(file2, first=23, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -240,7 +240,7 @@ df <- data.frame(Mean=c(red.mean.mhi.emc.mod.1x.15_50, red.mean.mhi.emc.mod.1x.1
 df <- df*100
 df <- signif(df, digits=5)
 stub <- substring(stub2, first=5, last=18)
-write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+#write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 
@@ -253,10 +253,10 @@ write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.tx
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\ICLsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat2x.RData"
-file2 <- "eggCounts_new_20-50_treat2x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat2x.RData"
+stub1 <- substring(file1, first=23, last=40)
+stub2 <- substring(file2, first=23, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -346,7 +346,7 @@ df <- data.frame(Mean=c(red.mean.mhi.icl.mod.2x.15_50, red.mean.mhi.icl.mod.2x.1
 df <- df*100
 df <- signif(df, digits=5)
 stub <- substring(stub2, first=5, last=18)
-write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+#write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 
@@ -359,10 +359,10 @@ write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.tx
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\EMCsimoutput\\"
-file1 <- "eggCounts_old_20-50_treat2x.RData"
-file2 <- "eggCounts_new_20-50_treat2x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_20-50_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_20-50_treat2x.RData"
+stub1 <- substring(file1, first=23, last=40)
+stub2 <- substring(file2, first=23, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -454,7 +454,7 @@ df <- data.frame(Mean=c(red.mean.mhi.emc.mod.2x.15_50, red.mean.mhi.emc.mod.2x.1
 df <- df*100
 df <- signif(df, digits=5)
 stub <- substring(stub2, first=5, last=18)
-write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+#write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 
@@ -471,10 +471,10 @@ write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.tx
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\ICLsimoutput\\"
-file1 <- "eggCounts_old_50-70_treat2x.RData"
-file2 <- "eggCounts_new_50-70_treat2x.RData"
-stub1 <- substring(file1, first=10, last=27)
-stub2 <- substring(file2, first=10, last=27)
+file1 <- "redoneEggCountsOneList_old_50-70_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_50-70_treat2x.RData"
+stub1 <- substring(file1, first=23, last=40)
+stub2 <- substring(file2, first=23, last=40)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -561,7 +561,7 @@ df <- data.frame(Mean=c(red.mean.mhi.icl.high.2x.15_50, red.mean.mhi.icl.high.2x
 df <- df*100
 df <- signif(df, digits=5)
 stub <- substring(stub2, first=5, last=18)
-write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+#write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 ##############################################################################################################################################
@@ -575,10 +575,10 @@ write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_ICL.tx
 #################################################################################################################################
 
 path <- "D:\\STH\\ModellingConsortium\\WRAquestion\\ForPublication\\EMCsimoutput\\"
-file1 <- "eggCounts_old_50-100_treat2x.RData"
-file2 <- "eggCounts_new_50-100_treat2x.RData"
-stub1 <- substring(file1, first=10, last=28)
-stub2 <- substring(file2, first=10, last=28)
+file1 <- "redoneEggCountsOneList_old_50-100_treat2x.RData"
+file2 <- "redoneEggCountsOneList_new_50-100_treat2x.RData"
+stub1 <- substring(file1, first=23, last=41)
+stub2 <- substring(file2, first=23, last=41)
 eggCounts_old <- get(load(paste0(path, file1)))
 eggCounts_new <- get(load(paste0(path, file2)))
 
@@ -668,7 +668,7 @@ df <- data.frame(Mean=c(red.mean.mhi.emc.high.2x.15_50, red.mean.mhi.emc.high.2x
 df <- df*100
 df <- signif(df, digits=5)
 stub <- substring(stub2, first=5, last=19)
-write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
+#write.table(df, file=paste0(outpath, "relativeReduction_pc95MHI", stub, "_EMC.txt"), sep="\t", col.names=TRUE, row.names=FALSE)
 
 
 ################################################################################
@@ -690,8 +690,8 @@ p <- p + geom_errorbar(aes(ymin=pc5, ymax=pc95))
 p <- p + scale_y_continuous(breaks=seq(0, 110, 20)) + coord_cartesian(ylim=c(0,110)) 
 p <- p + xlab("Scenarios") + ylab("Relative reduction in \nM&HI infection prevalence (%)")
 p <- p + scale_x_continuous(breaks=c(2, 6, 10), labels=c("Moderate prevalence,\nannual treatment", "Moderate prevalence,\nsemi-annual treatment", "High prevalence,\nsemi-annual treatment"))
-#print(p)
-#ggsave(paste0(outpath, "summaryFigureTreatedFoI_95percentiles.jpeg"), p, dpi=300)
+print(p)
+ggsave(paste0(outpath, "summaryFigureTreatedFoI_95percentiles.pdf"), p, dpi=300)
 
 
 
